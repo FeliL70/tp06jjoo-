@@ -3,9 +3,9 @@ using Dapper;
 
 public static class BD
 {
-    private static string connectionString = "your_connection_string_here";
+    private static string connectionString = @"Server=localhost;DataBase=BD_TP6;Trusted_connection=true;";
 
-    public static void AgregarDeportista(Deportista dep)
+   public static void AgregarDeportista(Deportista dep)
     {
         using (var connection = new SqlConnection(connectionString))
         {
@@ -75,5 +75,5 @@ public static class BD
             var sql = "SELECT * FROM Deportistas WHERE IdPais = @IdPais";
             return connection.Query<Deportista>(sql, new { IdPais = idPais }).ToList();
         }
-    }
+    } 
 }
