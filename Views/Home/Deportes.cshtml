@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = "Deportes";
+    var deportes = ViewBag.Deportes as List<Deporte>;
+}
+
+<h2>Listado de Deportes</h2>
+
+@if (deportes == null || !deportes.Any())
+{
+    <p>No hay deportes disponibles.</p>
+}
+else
+{
+    <ul>
+        @foreach (var deporte in deportes)
+        {
+            <li><a href="@Url.Action("VerDetalleDeporte", "Home", new { idDeporte = deporte.IdDeporte })">@deporte.Nombre</a></li>
+        }
+    </ul>
+}

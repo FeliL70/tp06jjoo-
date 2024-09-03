@@ -1,0 +1,71 @@
+@{
+    ViewData["Title"] = "Agregar Deportista";
+    var paises = ViewBag.Paises as List<Pais>;
+    var deportes = ViewBag.Deportes as List<Deporte>;
+}
+
+<h2>Agregar Nuevo Deportista</h2>
+
+<form asp-action="GuardarDeportista" asp-controller="Home" method="post">
+    <div class="form-group">
+        <label for="Nombre">Nombre:</label>
+        <input type="text" class="form-control" id="Nombre" name="Nombre" required />
+    </div>
+    <div class="form-group">
+        <label for="Apellido">Apellido:</label>
+        <input type="text" class="form-control" id="Apellido" name="Apellido" required />
+    </div>
+    <div class="form-group">
+        <label for="FechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" class="form-control" id="FechaNacimiento" name="FechaNacimiento" required />
+    </div>
+    <div class="form-group">
+        <label for="Foto">Foto:</label>
+        <input type="text" class="form-control" id="Foto" name="Foto" required />
+    </div>
+    <div class="form-group">
+        <label for="IdPais">País:</label>
+        <select class="form-control" id="IdPais" name="IdPais">
+            @if (paises == null || !paises.Any())
+            {
+                <option value="">No hay países disponibles</option>
+            }
+            else
+            {
+                @foreach (var pais in paises)
+                {
+                    <option value="@pais.IdPais">@pais.Nombre</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="IdDeporte">Deporte:</label>
+        <select class="form-control" id="IdDeporte" name="IdDeporte">
+            @if (deportes == null || !deportes.Any())
+            {
+                <option value="">No hay deportes disponibles</option>
+            }
+            else
+            {
+                @foreach (var deporte in deportes)
+                {
+                    <option value="@deporte.IdDeporte">@deporte.Nombre</option>
+                }
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+<hr />
+
+<h2>Eliminar Deportista</h2>
+
+<form asp-action="EliminarDeportista" asp-controller="Home" method="post">
+    <div class="form-group">
+        <label for="IdDeportista">ID del Deportista a Eliminar:</label>
+        <input type="number" class="form-control" id="IdDeportista" name="idDeportista" required />
+    </div>
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+</form>

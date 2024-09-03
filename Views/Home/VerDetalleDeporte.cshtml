@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Detalle Deporte";
+    var deporte = ViewBag.Deporte as Deporte;
+    var deportistas = ViewBag.Deportistas as List<Deportista>;
+}
+
+@if (deporte == null)
+{
+    <p>No se encontró información para el deporte solicitado.</p>
+}
+else
+{
+    <h2>Detalle del Deporte: @deporte.Nombre</h2>
+    <img src="@deporte.Foto" alt="Imagen de @deporte.Nombre" />
+
+    <h3>Deportistas Asociados</h3>
+
+    @if (deportistas == null || !deportistas.Any())
+    {
+        <p>No hay deportistas asociados a este deporte.</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var deportista in deportistas)
+            {
+                <li><a href="@Url.Action("VerDetalleDeportista", "Home", new { idDeportista = deportista.IdDeportista })">@deportista.Nombre @deportista.Apellido</a></li>
+            }
+        </ul>
+    }
+}

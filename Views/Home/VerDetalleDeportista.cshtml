@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Detalle Deportista";
+    var deportista = ViewBag.Deportista as Deportista;
+}
+
+@if (deportista == null)
+{
+    <p>No se encontró información para el deportista solicitado.</p>
+}
+else
+{
+    <h2>Detalle del Deportista: @deportista.Nombre @deportista.Apellido</h2>
+    <img src="@deportista.Foto" alt="Imagen de @deportista.Nombre @deportista.Apellido" />
+    <p>Fecha de Nacimiento: @deportista.FechaNacimiento.ToShortDateString()</p>
+    <p>País: <a href="@Url.Action("VerDetallePais", "Home", new { idPais = deportista.IdPais })">@deportista.IdPais</a></p>
+    <p>Deporte: <a href="@Url.Action("VerDetalleDeporte", "Home", new { idDeporte = deportista.IdDeporte })">@deportista.IdDeporte</a></p>
+}

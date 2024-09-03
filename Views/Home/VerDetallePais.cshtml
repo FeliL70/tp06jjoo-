@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Detalle País";
+    var pais = ViewBag.Pais as Pais;
+    var deportistas = ViewBag.Deportistas as List<Deportista>;
+}
+
+@if (pais == null)
+{
+    <p>No se encontró información para el país solicitado.</p>
+}
+else
+{
+    <h2>Detalle del País: @pais.Nombre</h2>
+    <img src="@pais.Bandera" alt="Bandera de @pais.Nombre" />
+    <p>Fecha de Fundación: @pais.FechaFundacion.ToShortDateString()</p>
+
+    <h3>Deportistas Asociados</h3>
+
+    @if (deportistas == null || !deportistas.Any())
+    {
+        <p>No hay deportistas asociados a este país.</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var deportista in deportistas)
+            {
+                <li><a href="@Url.Action("VerDetalleDeportista", "Home", new { idDeportista = deportista.IdDeportista })">@deportista.Nombre @deportista.Apellido</a></li>
+            }
+        </ul>
+    }
+}

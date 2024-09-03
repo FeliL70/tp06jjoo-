@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = "Paises";
+    var paises = ViewBag.Paises as List<Pais>;
+}
+
+<h2>Listado de Países</h2>
+
+@if (paises == null || !paises.Any())
+{
+    <p>No hay países disponibles.</p>
+}
+else
+{
+    <ul>
+        @foreach (var pais in paises)
+        {
+            <li><a href="@Url.Action("VerDetallePais", "Home", new { idPais = pais.IdPais })">@pais.Nombre</a></li>
+        }
+    </ul>
+}

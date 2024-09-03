@@ -1,11 +1,12 @@
 using System.Data.SqlClient;
 using Dapper;
+using TP06_Cordero_Lipreti.Models;
 
 public static class BD
 {
-    private static string connectionString = @"Server=localhost;DataBase=BD_TP6;Trusted_connection=true;";
+    private static string connectionString = @"Server=localhost\SQLEXPRESS;DataBase=JJOO;Trusted_Connection=true;";
 
-   public static void AgregarDeportista(Deportista dep)
+    public static void AgregarDeportista(Deportista dep)
     {
         using (var connection = new SqlConnection(connectionString))
         {
@@ -59,6 +60,15 @@ public static class BD
         }
     }
 
+    public static List<Deporte> ListarDeportes()
+    {
+        using (var connection = new SqlConnection(connectionString))
+        {
+            var sql = "SELECT * FROM Deportes";
+            return connection.Query<Deporte>(sql).ToList();
+        }
+    }
+
     public static List<Deportista> ListarDeportistasPorDeporte(int idDeporte)
     {
         using (var connection = new SqlConnection(connectionString))
@@ -75,5 +85,5 @@ public static class BD
             var sql = "SELECT * FROM Deportistas WHERE IdPais = @IdPais";
             return connection.Query<Deportista>(sql, new { IdPais = idPais }).ToList();
         }
-    } 
+    }
 }
